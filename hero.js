@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const SRC = 'assets/hands.webp?v=7';
+  const SRC = 'assets/hands.webp?v=10';
   const REGION_W = 860;               // width of the cutout in base units; the file holds it at a higher resolution
   const FOCUS = { x: 429, y: 175 };   // the gap between the fingertips, in base units
   const SEAM_CELLS = 2;               // painting dissolves into glyphs over this many cells

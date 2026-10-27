@@ -17,40 +17,33 @@
     }, { passive: false });
   }
 
-  // cursor light: a soft glow across the whole page, with a small translucent circle at the pointer
+  // cursor light: a soft glow across the whole page that trails the pointer
   const RESPECT_REDUCED_MOTION = false;   // motion plays even when the OS asks for less, by the site owner's choice
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   if (matchMedia('(hover: hover) and (pointer: fine)').matches && !(RESPECT_REDUCED_MOTION && reducedMotion.matches)) {
     const glow = document.createElement('div');
-    const dot = document.createElement('div');
     glow.className = 'cursor-glow';
-    dot.className = 'cursor-dot';
     glow.setAttribute('aria-hidden', 'true');
-    dot.setAttribute('aria-hidden', 'true');
-    document.body.append(glow, dot);
+    document.body.append(glow);
 
-    const GLOW = 320, DOT = 22;            // radii/sizes in px; the glow is a 2*GLOW disc
-    let tx = 0, ty = 0, gx = 0, gy = 0, dx = 0, dy = 0, raf = 0, seen = false;
+    const R = 320;                          // the glow is a disc of radius R
+    let tx = 0, ty = 0, gx = 0, gy = 0, raf = 0, seen = false;
 
     const tick = () => {
-      gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;       // the glow trails the pointer
-      dx += (tx - dx) * 0.32; dy += (ty - dy) * 0.32;       // the circle follows closer
-      glow.style.transform = `translate3d(${gx - GLOW}px, ${gy - GLOW}px, 0)`;
-      dot.style.transform = `translate3d(${dx - DOT / 2}px, ${dy - DOT / 2}px, 0)`;
-      const settled = Math.abs(tx - gx) < 0.3 && Math.abs(ty - gy) < 0.3 && Math.abs(tx - dx) < 0.3 && Math.abs(ty - dy) < 0.3;
-      raf = settled ? 0 : requestAnimationFrame(tick);
+      gx += (tx - gx) * 0.12; gy += (ty - gy) * 0.12;
+      glow.style.transform = `translate3d(${gx - R}px, ${gy - R}px, 0)`;
+      raf = Math.abs(tx - gx) < 0.3 && Math.abs(ty - gy) < 0.3 ? 0 : requestAnimationFrame(tick);
     };
     const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
 
     addEventListener('pointermove', (e) => {
       if (e.pointerType === 'touch') return;
       tx = e.clientX; ty = e.clientY;
-      if (!seen) { seen = true; gx = dx = tx; gy = dy = ty; glow.classList.add('on'); dot.classList.add('on'); }
-      dot.classList.toggle('over', !!e.target.closest('a, button, [role="button"], summary'));
+      if (!seen) { seen = true; gx = tx; gy = ty; glow.classList.add('on'); }
       kick();
     }, { passive: true });
-    document.documentElement.addEventListener('mouseleave', () => { glow.classList.remove('on'); dot.classList.remove('on'); });
-    document.documentElement.addEventListener('mouseenter', () => { if (seen) { glow.classList.add('on'); dot.classList.add('on'); } });
+    document.documentElement.addEventListener('mouseleave', () => glow.classList.remove('on'));
+    document.documentElement.addEventListener('mouseenter', () => { if (seen) glow.classList.add('on'); });
   }
 
   if (!toggle) return;

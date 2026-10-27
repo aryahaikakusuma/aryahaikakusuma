@@ -190,32 +190,22 @@ nav { view-transition-name: site-nav; }
   animation-delay: calc(450ms + var(--i, 0) * 110ms);
 }
 
-/* cursor light */
-.cursor-glow, .cursor-dot {
+/* cursor light: a soft glow that follows the pointer across the page */
+.cursor-glow {
   position: fixed;
   left: 0;
   top: 0;
   z-index: 40;
+  width: 640px;
+  height: 640px;
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
   will-change: transform;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--rubric) 11%, transparent), transparent);
   transition: opacity 400ms ease-out;
 }
-.cursor-glow {
-  width: 640px;
-  height: 640px;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--rubric) 11%, transparent), transparent);
-}
-.cursor-dot {
-  width: 22px;
-  height: 22px;
-  background: color-mix(in srgb, var(--ink) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
-  transition: opacity 400ms ease-out, background-color 200ms ease-out;
-}
-.cursor-dot.over { background: color-mix(in srgb, var(--rubric) 18%, transparent); border-color: color-mix(in srgb, var(--rubric) 50%, transparent); }
-.cursor-glow.on, .cursor-dot.on { opacity: 1; }
+.cursor-glow.on { opacity: 1; }
 
 /* inner pages */
 .page {
