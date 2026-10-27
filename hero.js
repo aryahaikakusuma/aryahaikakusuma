@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const SRC = 'assets/hands.webp?v=10';
+  const SRC = 'assets/hands.webp?v=11';
   const REGION_W = 860;               // width of the cutout in base units; the file holds it at a higher resolution
   const FOCUS = { x: 429, y: 175 };   // the gap between the fingertips, in base units
   const SEAM_CELLS = 2;               // painting dissolves into glyphs over this many cells
@@ -301,13 +301,13 @@
       ctx.restore();
     }
 
-    // the glyphs slide in from the right: baked layer, with the right-hand part nudged left as the lamp nears the gap
-    const shift = prox * cw, cxD = Math.round(cx * dpr);
+    // the glyphs slide in from the right: baked layer
+    const cxD = Math.round(cx * dpr);
     ctx.save();
     ctx.globalAlpha = clamp(pr * 1.5);
     ctx.translate((1 - pr) * dist, 0);
     ctx.drawImage(layer, 0, 0, cxD, G.ph, 0, 0, cx, H);
-    ctx.drawImage(layer, cxD, 0, G.pw - cxD, G.ph, cx - shift, 0, W - cx, H);
+    ctx.drawImage(layer, cxD, 0, G.pw - cxD, G.ph, cx, 0, W - cx, H);
     ctx.restore();
 
     // glyphs the lamp is warming
@@ -325,7 +325,7 @@
           if (smooth(cx - SEAM_CELLS * cw, cx, xc) < 0.99) continue;
           const te = tone[i] + h * 0.38;
           ctx.globalAlpha = (0.16 + 0.84 * clamp(te)) * Math.min(1, h * 1.6);
-          ctx.fillText(ramp(te), xc - shift, (r + 0.5) * ch);
+          ctx.fillText(ramp(te), xc, (r + 0.5) * ch);
         }
       }
       ctx.restore();
