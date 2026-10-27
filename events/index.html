@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events · Heika</title>
+  <meta name="description" content="Talks, hackathons and gatherings.">
+  <script>
+    try {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css?v=7">
+</head>
+<body>
+  <nav aria-label="Main">
+    <a href="/">home</a>
+    <a href="/projects/">projects</a>
+    <a href="/events/" aria-current="page"><span class="folio" aria-hidden="true">iii</span>events</a>
+    <a href="/blog/">blog</a>
+    <button type="button" id="theme-toggle" aria-label="Switch theme">
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
+        <circle cx="8" cy="8" r="3"/>
+        <path d="M8 1.5v1.6M8 12.9v1.6M1.5 8h1.6M12.9 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M3.4 12.6l1.1-1.1M11.5 4.5l1.1-1.1"/>
+      </svg>
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true">
+        <path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8Z"/>
+      </svg>
+    </button>
+  </nav>
+
+  <main class="page list">
+    <h1>Events</h1>
+    <section aria-labelledby="up">
+      <h2 id="up">Upcoming</h2>
+      <ol class="index events">
+        <li><a href="#"><time datetime="2026-11-14">14 Nov 2026</time><span class="row-title">Talk title</span><span class="meta">City &middot; speaking</span></a></li>
+        <li><a href="#"><time datetime="2026-12-05">5 Dec 2026</time><span class="row-title">Hackathon name</span><span class="meta">City &middot; hosting</span></a></li>
+      </ol>
+    </section>
+    <p class="fleuron" aria-hidden="true">* * *</p>
+    <section aria-labelledby="past">
+      <h2 id="past">Past</h2>
+      <ol class="index events">
+        <li><a href="#"><time datetime="2026-09-20">20 Sep 2026</time><span class="row-title">Meetup name</span><span class="meta">City &middot; attending</span></a></li>
+        <li><a href="#"><time datetime="2026-06-08">8 Jun 2026</time><span class="row-title">Conference name</span><span class="meta">City &middot; speaking</span></a></li>
+        <li><a href="#"><time datetime="2026-03-02">2 Mar 2026</time><span class="row-title">Workshop name</span><span class="meta">City &middot; hosting</span></a></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>Set in EB Garamond and Fragment Mono.</p>
+  </footer>
+
+  <script src="/site.js?v=7" defer></script>
+</body>
+</html>
